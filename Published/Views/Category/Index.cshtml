@@ -1,0 +1,84 @@
+﻿@model List<NetsmartzOnlineStore.Models.CategoryModels.CategoryDisplayModel>
+@{
+    ViewBag.Title = "Index";
+    Layout = "~/Views/Shared/_Layout.cshtml";
+}
+<style>
+    .button {
+    display: block;
+    width: 115px;
+    height: 44px;
+    background: #4E9CAF;
+    padding: 10px;
+    text-align: center;
+    border-radius: 5px;
+    color: white;
+    font-weight: bold;
+    line-height: 25px;
+}
+</style>
+<script type="text/javascript">
+    function DeleteVal(id) {
+        if (id != '0') {
+            alert("You need to delete all the product first.");
+            return false;
+        }
+    }
+</script>
+<div class="row">
+    <div class="col-md-12">
+        <div class="col-md-6">
+            <h3>Category</h3>
+        </div>
+        <div class="col-md-6">
+            <a href="@Url.Action("Create", "Category")" class="button" style="margin-top:15px; text-decoration:none" data-toggle="tooltip" data-placement="top" title="Add Category">Add Category</a>
+        </div>
+    </div>
+</div>
+<table cellpadding="10">
+    <thead>
+        <tr>
+
+            <th><h4>List Of Categories</h4></th>
+        </tr>
+    </thead>
+
+    <tbody>
+        <tr>
+            <td><b>Category Name</b></td>
+            <td style="padding-left:0px; padding-right:60px"><b>Description</b></td>
+            <td><b>Price Range</b></td>
+            <td><b>Display Order</b></td>
+            <td><b>Product Count</b></td>
+            <td><b>Add Product</b></td>
+            <td><b>Edit</b></td>
+            <td><b>Delete</b></td>
+        </tr>
+        @foreach (var item in Model)
+        {
+            <tr>
+
+                <td>@item.CategoryName</td>
+                <td style="padding-left:0px; padding-right:60px">@item.CategoryDescription</td>
+                <td>
+                    @item.MinPriceRange  -  @item.MaxPriceRange
+                </td>
+                <td>@item.DisplayOrder</td>
+                <td>@item.ProductCount</td>
+                <td>
+                    <a href="@Url.Action("Index","Product",new { id = item.CategoryID_PK })">
+                        <span class="glyphicon glyphicon-plus" aria-hidden="true"></span>
+                    </a>
+                </td>
+                <td><a href="@Url.Action("Edit", "Category",new { id = item.CategoryID_PK })"><span class="glyphicon glyphicon-edit" aria-hidden="true"></span></a></td>
+                <td>
+                    <a href="@Url.Action("Delete","Category",new { id = item.CategoryID_PK })" onclick="return DeleteVal(@item.ProductCount)">
+                        <span class="glyphicon glyphicon-remove" aria-hidden="true"></span>
+                    </a>
+                </td>
+            </tr>
+        }
+
+    </tbody>
+</table>
+

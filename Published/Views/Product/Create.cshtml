@@ -1,0 +1,122 @@
+﻿@model NetsmartzOnlineStore.Models.ProductModels
+@{
+    ViewBag.Title = "Create";
+    Layout = "~/Views/Shared/_Layout.cshtml";
+}
+
+<script type="text/javascript">
+    function ProductValidation() {
+        if ($('#ProductName').val() == '') {
+            $('#lblProNameValid').show();
+            document.getElementById("lblProNameValid").innerHTML = '<p style="color:red; font-size:12px; margin-bottom: 0rem;">Required.</p>';
+            return false;
+        }
+        if ($('#ProductDescription').val() == '') {
+            $('#lblProDescValid').show();
+            document.getElementById("lblProDescValid").innerHTML = '<p style="color:red; font-size:12px; margin-bottom: 0rem;">Required.</p>';
+            return false;
+        }
+        if ($('#ProductQuantity').val() == '') {
+            $('#lblProQuantValid').show();
+            document.getElementById("lblProQuantValid").innerHTML = '<p style="color:red; font-size:12px; margin-bottom: 0rem;">Required.</p>';
+            return false;
+        }
+        if ($('#ProductPrice').val() == '') {
+            $('#lblProPriceValid').show();
+            document.getElementById("lblProPriceValid").innerHTML = '<p style="color:red; font-size:12px; margin-bottom: 0rem;">Required.</p>';
+            return false;
+        }
+        if ($('#Discount').val() == '') {
+            $('#lblProDisValid').show();
+            document.getElementById("lblProDisValid").innerHTML = '<p style="color:red; font-size:12px; margin-bottom: 0rem;">Required.</p>';
+            return false;
+        }
+        if ($('#ExpiryDate').val() == '') {
+            $('#lblProDateValid').show();
+            document.getElementById("lblProDateValid").innerHTML = '<p style="color:red; font-size:12px; margin-bottom: 0rem;">Required.</p>';
+            return false;
+        }
+    }
+</script>
+
+@if (Model.ProductID_PK > 0)
+{
+    <h3>Edit Product</h3>
+}
+else
+{
+    <h3>Add Product</h3>
+}
+
+<form method="post">
+
+
+    <div class="form-horizontal">
+        @Html.HiddenFor(m => m.ProductID_PK)
+        @Html.HiddenFor(m => m.CategoryID_FK)
+        <hr />
+        <div class="form-group">
+            <label class="control-label col-md-2">Product Name :<em>*</em></label>
+            <div class="col-md-10">
+                @Html.EditorFor(model => model.ProductName, new { htmlAttributes = new { @class = "form-control", @maxlength = 50 } })
+                <div id="lblProNameValid" style="display:block;color:red; font-size:2pt;">
+                </div>
+            </div>
+        </div>
+
+        <div class="form-group">
+            <label class="control-label col-md-2">Product Description :<em>*</em></label>
+            <div class="col-md-10">
+                @Html.EditorFor(model => model.ProductDescription, new { htmlAttributes = new { @class = "form-control", @maxlength = 50 } })
+                <div id="lblProDescValid" style="display:block;color:red; font-size:2pt;">
+                </div>
+            </div>
+        </div>
+
+        <div class="form-group">
+            <label class="control-label col-md-2">Quantity :<em>*</em></label>
+            <div class="col-md-10">
+                @Html.EditorFor(model => model.ProductQuantity, new { htmlAttributes = new { @class = "form-control", @maxlength = 50 } })
+                <div id="lblProQuantValid" style="display:block;color:red; font-size:2pt;">
+                </div>
+            </div>
+        </div>
+
+        <div class="form-group">
+            <label class="control-label col-md-2">Price :<em>*</em></label>
+            <div class="col-md-10">
+                @Html.EditorFor(model => model.ProductPrice, new { htmlAttributes = new { @class = "form-control", @maxlength = 50 } })
+                <div id="lblProPriceValid" style="display:block;color:red; font-size:2pt;">
+                </div>
+            </div>
+        </div>
+
+        <div class="form-group">
+
+            <label class="control-label col-md-2">Discount:<em>*</em></label>
+            <div class="col-md-10">
+                @Html.EditorFor(model => model.Discount, new { htmlAttributes = new { @class = "form-control", @maxlength = 50 } })
+                <div id="lblProDisValid" style="display:block;color:red; font-size:2pt;">
+                </div>
+            </div>
+        </div>
+        <div class="form-group">
+
+            <label class="control-label col-md-2">Expiry Date:<em>*</em></label>
+            <div class="col-md-10">
+                @Html.TextBoxFor(model => model.ExpiryDate, "{0:yyyy-MM-dd}", new { Type = "Date", @class = "form-control" })
+                <div id="lblProDateValid" style="display:block;color:red; font-size:2pt;">
+                </div>
+            </div>
+        </div>
+
+
+        <div class="form-group">
+            <div class="col-md-offset-2 col-md-10">
+                <input type="submit" value="Save" class="btn btn-default" onclick="return ProductValidation()"/>
+                <input type="button" value="Cancle" class="btn btn-default" onclick="javascript:document.location.href='@Url.Action("Index", "Product", new { id = Model.CategoryID_FK})'" />
+            </div>
+
+        </div>
+    </div>
+</form>
